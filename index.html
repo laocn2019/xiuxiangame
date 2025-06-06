@@ -1,46 +1,28 @@
 <!DOCTYPE html>
-<html>
+<html lang="zh-CN">
 <head>
-  <meta charset="UTF-8">
-  <title>文字修仙小游戏</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>我的修仙之路</title>
   <style>
-    body { font-family: sans-serif; text-align: center; margin-top: 100px; }
-    button { padding: 10px 20px; margin: 10px; font-size: 16px; }
+    body { font-family: '微软雅黑', sans-serif; text-align: center; background-color: #f9f5ef; padding: 20px; }
+    h1 { color: #6b4226; }
+    .stats { font-size: 18px; margin: 10px 0; }
+    .stat-box { border: 1px solid #ccc; padding: 10px; margin: 5px; border-radius: 8px; background-color: #fff; display: inline-block; width: 150px; }
   </style>
 </head>
 <body>
-  <h2>你是一位修仙者</h2>
-  <p>当前境界：<span id="realm">炼气期</span></p>
-  <p>当前灵力：<span id="lingli">0</span></p>
-
-  <button onclick="train()">修炼</button>
-  <button onclick="breakthrough()">突破</button>
-
-  <script>
-    let lingli = 0;
-    let realm = '炼气期';
-
-    function train() {
-      lingli += 10;
-      document.getElementById('lingli').innerText = lingli;
-    }
-
-    function breakthrough() {
-      if (lingli >= 100) {
-        let success = Math.random() < 0.7;
-        if (success) {
-          realm = '筑基期';
-          lingli = 0;
-          document.getElementById('realm').innerText = realm;
-          document.getElementById('lingli').innerText = lingli;
-          alert('突破成功，进入筑基期！');
-        } else {
-          alert('突破失败，继续努力修炼吧。');
-        }
-      } else {
-        alert('灵力不足，无法突破。');
-      }
-    }
-  </script>
+  <h1>修仙之路·角色信息</h1>
+  <div class="stats">
+    <div class="stat-box">角色名：凡尘一叶</div>
+    <div class="stat-box">灵力值：<span id="power">0</span></div>
+  </div>
+  <div class="stats">
+    <div class="stat-box">金灵根：30</div>
+    <div class="stat-box">木灵根：50</div>
+    <div class="stat-box">水灵根：40</div>
+    <div class="stat-box">火灵根：20</div>
+    <div class="stat-box">土灵根：60</div>
+  </div>
 </body>
 </html>
