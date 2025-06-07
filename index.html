@@ -5,24 +5,67 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>我的修仙之路</title>
   <style>
-    body { font-family: '微软雅黑', sans-serif; text-align: center; background-color: #f9f5ef; padding: 20px; }
-    h1 { color: #6b4226; }
-    .stats { font-size: 18px; margin: 10px 0; }
-    .stat-box { border: 1px solid #ccc; padding: 10px; margin: 5px; border-radius: 8px; background-color: #fff; display: inline-block; width: 150px; }
+    body {
+      font-family: '微软雅黑', sans-serif;
+      background-color: #0C2238;
+      color: #fff;
+      text-align: center;
+      padding: 20px;
+    }
+    h1 {
+      color: #F0E68C;
+    }
+    .stat-box {
+      border: 1px solid #ccc;
+      background-color: #102c48;
+      border-radius: 8px;
+      display: inline-block;
+      width: 180px;
+      padding: 10px;
+      margin: 10px;
+      font-size: 18px;
+    }
+    #cultivateBtn {
+      margin-top: 20px;
+      padding: 10px 20px;
+      font-size: 18px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+    #cultivateBtn:hover {
+      background-color: #45a049;
+    }
   </style>
 </head>
 <body>
-  <h1>修仙之路·角色信息</h1>
-  <div class="stats">
-    <div class="stat-box">角色名：凡尘一叶</div>
-    <div class="stat-box">灵力值：<span id="power">0</span></div>
-  </div>
-  <div class="stats">
+  <h1>修仙之路 · 初入灵根</h1>
+
+  <div class="stat-box">角色名：凡尘一叶</div>
+  <div class="stat-box">当前灵力值：<span id="power">0</span></div>
+
+  <div style="margin-top: 20px;">
     <div class="stat-box">金灵根：30</div>
     <div class="stat-box">木灵根：50</div>
     <div class="stat-box">水灵根：40</div>
     <div class="stat-box">火灵根：20</div>
     <div class="stat-box">土灵根：60</div>
   </div>
+
+  <button id="cultivateBtn">开始修炼</button>
+
+  <script>
+    let power = 0;
+
+    const powerSpan = document.getElementById("power");
+    const cultivateBtn = document.getElementById("cultivateBtn");
+
+    cultivateBtn.addEventListener("click", () => {
+      power += 1;
+      powerSpan.textContent = power;
+    });
+  </script>
 </body>
 </html>
