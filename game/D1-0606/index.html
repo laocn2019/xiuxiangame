@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>文字修仙小游戏</title>
+  <style>
+    body { font-family: sans-serif; text-align: center; margin-top: 100px; }
+    button { padding: 10px 20px; margin: 10px; font-size: 16px; }
+  </style>
+</head>
+<body>
+  <h2>你是一位修仙者</h2>
+  <p>当前境界：<span id="realm">炼气期</span></p>
+  <p>当前灵力：<span id="lingli">0</span></p>
+
+  <button onclick="train()">修炼</button>
+  <button onclick="breakthrough()">突破</button>
+
+  <script>
+    let lingli = 0;
+    let realm = '炼气期';
+
+    function train() {
+      lingli += 10;
+      document.getElementById('lingli').innerText = lingli;
+    }
+
+    function breakthrough() {
+      if (lingli >= 100) {
+        let success = Math.random() < 0.7;
+        if (success) {
+          realm = '筑基期';
+          lingli = 0;
+          document.getElementById('realm').innerText = realm;
+          document.getElementById('lingli').innerText = lingli;
+          alert('突破成功，进入筑基期！');
+        } else {
+          alert('突破失败，继续努力修炼吧。');
+        }
+      } else {
+        alert('灵力不足，无法突破。');
+      }
+    }
+  </script>
+</body>
+</html>
