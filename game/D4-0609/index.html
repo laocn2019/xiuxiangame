@@ -41,7 +41,7 @@
   </style>
 </head>
 <body>
-  <h1>修仙之路 · 境界突破</h1>
+  <h1>修仙之路 · 境界提升</h1>
 
   <div class="stat-box">角色名：凡尘一叶</div>
   <div class="stat-box">当前境界：<span id="realm">练气一层</span></div>
@@ -65,22 +65,22 @@
     const realmSpan = document.getElementById("realm");
     const cultivateBtn = document.getElementById("cultivateBtn");
 
-    const realmNames = [
-      "练气一层", "练气二层", "练气三层", "练气四层", "练气五层",
-      "练气六层", "练气七层", "练气八层", "练气九层", "筑基初期",
-      "筑基中期", "筑基后期", "金丹期"
-    ];
+    function getRealmName(level) {
+      const names = ["练气", "筑基", "金丹", "元婴", "化神", "合体", "大乘", "渡劫", "飞升"];
+      const stage = names[Math.floor((level - 1) / 9)] || "飞升";
+      const layer = ((level - 1) % 9) + 1;
+      return `${stage}${layer}层`;
+    }
 
     cultivateBtn.addEventListener("click", () => {
       power += 1;
       if (power >= 10) {
         power = 0;
-        realmLevel++;
-        const newRealm = realmNames[realmLevel - 1] || "已达仙界";
-        realmSpan.textContent = newRealm;
-        alert("🎉 突破成功！进入境界：" + newRealm);
+        realmLevel += 1;
+        alert("突破成功！你已进入" + getRealmName(realmLevel));
       }
       powerSpan.textContent = power;
+      realmSpan.textContent = getRealmName(realmLevel);
     });
   </script>
 </body>
