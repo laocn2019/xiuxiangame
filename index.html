@@ -111,8 +111,6 @@
     <button id="cultivateBtn">开始修炼</button>
   </div>
 
-
-
   <script>
   let power = 0;
   let realmLevel = 1;
@@ -167,6 +165,44 @@
     herbSpan.textContent = herbs;
     alert("你采集到了灵草 🌿！当前拥有：" + herbs + " 株");
   });
+  let pills = 0;
+
+const pillSpan = document.getElementById("pills");
+const makePillBtn = document.getElementById("makePillBtn");
+const eatPillBtn = document.getElementById("eatPillBtn");
+
+makePillBtn.addEventListener("click", () => {
+  if (herbs >= 3) {
+    herbs -= 3;
+    pills += 1;
+    herbSpan.textContent = herbs;
+    pillSpan.textContent = pills;
+    alert("你成功炼制出了一颗丹药！");
+  } else {
+    alert("灵草不足，至少需要 3 株灵草才能炼丹！");
+  }
+});
+
+eatPillBtn.addEventListener("click", () => {
+  if (pills >= 1) {
+    pills -= 1;
+    power += 5;
+    pillSpan.textContent = pills;
+    powerSpan.textContent = power;
+    alert("你服用了丹药，灵力提升 +5！");
+
+    if (power >= 10) {
+      power = 0;
+      realmLevel++;
+      const newRealm = realmNames[realmLevel - 1] || "已达仙界";
+      realmSpan.textContent = newRealm;
+      alert("🎉 突破成功！进入境界：" + newRealm);
+    }
+  } else {
+    alert("你没有丹药可服用！");
+  }
+});
+
 </script>
 
 </body>
