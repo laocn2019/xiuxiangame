@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>修仙之路 · 五灵修炼</title>
+  <title>修仙之路 · 灵草与灵兽</title>
   <style>
     body {
       margin: 0;
@@ -31,6 +31,30 @@
       background-image: url('https://static.thenounproject.com/png/5047080-200.png');
       background-size: contain;
       background-repeat: no-repeat;
+    }
+
+    .herb {
+      position: absolute;
+      bottom: 60px;
+      left: 100px;
+      width: 40px;
+      height: 40px;
+      background-image: url('https://cdn-icons-png.flaticon.com/512/2909/2909769.png');
+      background-size: contain;
+      background-repeat: no-repeat;
+      cursor: pointer;
+    }
+
+    .beast {
+      position: absolute;
+      bottom: 80px;
+      right: 100px;
+      width: 50px;
+      height: 50px;
+      background-image: url('https://cdn-icons-png.flaticon.com/512/616/616408.png');
+      background-size: contain;
+      background-repeat: no-repeat;
+      cursor: pointer;
     }
 
     .ui-panel {
@@ -62,33 +86,19 @@
     }
 
     #cultivateBtn:hover {
-  background-color: #45a049;
-}
-
-.herb {
-  position: absolute;
-  bottom: 60px;
-  left: 100px;
-  width: 40px;
-  height: 40px;
-  background-image: url('https://cdn-icons-png.flaticon.com/512/2909/2909769.png');
-  background-size: contain;
-  background-repeat: no-repeat;
-  cursor: pointer;
-}
-
+      background-color: #45a049;
+    }
   </style>
 </head>
 <body>
   <div class="world">
     <div class="hero"></div>
-
-    <!-- 🌿 灵草图标 -->
     <div class="herb" title="点击采集灵草"></div>
+    <div class="beast" title="点击收服灵兽"></div>
   </div>
 
   <div class="ui-panel">
-    <h1>修仙之路 · 灵草采集</h1>
+    <h1>修仙之路 · 灵草与灵兽</h1>
 
     <div class="stat-box">角色名：凡尘一叶</div>
     <div class="stat-box">主灵根：🔥 火灵根</div>
@@ -103,107 +113,90 @@
       <div class="stat-box">土灵力：<span id="earth">0</span></div>
     </div>
 
-    <!-- 🌿 灵草背包 -->
     <div style="margin-top: 20px;">
       <div class="stat-box">🌿 灵草：<span id="herbs">0</span></div>
+      <div class="stat-box">🐉 灵兽状态：<span id="beastStatus">未收服</span></div>
     </div>
 
     <button id="cultivateBtn">开始修炼</button>
   </div>
 
   <script>
-  let power = 0;
-  let realmLevel = 1;
-  let fire = 0, water = 0, wood = 0, metal = 0, earth = 0;
-  let herbs = 0; // 🌿 灵草数量
-  const mainRoot = "fire";
+    let power = 0;
+    let realmLevel = 1;
+    let fire = 0, water = 0, wood = 0, metal = 0, earth = 0;
+    let herbs = 0;
+    const mainRoot = "fire";
+    let beastTamed = false;
 
-  const powerSpan = document.getElementById("power");
-  const realmSpan = document.getElementById("realm");
-  const cultivateBtn = document.getElementById("cultivateBtn");
+    const powerSpan = document.getElementById("power");
+    const realmSpan = document.getElementById("realm");
+    const cultivateBtn = document.getElementById("cultivateBtn");
 
-  const fireSpan = document.getElementById("fire");
-  const waterSpan = document.getElementById("water");
-  const woodSpan = document.getElementById("wood");
-  const metalSpan = document.getElementById("metal");
-  const earthSpan = document.getElementById("earth");
-  const herbSpan = document.getElementById("herbs");
+    const fireSpan = document.getElementById("fire");
+    const waterSpan = document.getElementById("water");
+    const woodSpan = document.getElementById("wood");
+    const metalSpan = document.getElementById("metal");
+    const earthSpan = document.getElementById("earth");
+    const herbSpan = document.getElementById("herbs");
+    const beastStatus = document.getElementById("beastStatus");
 
-  const realmNames = [
-    "练气一层", "练气二层", "练气三层", "练气四层", "练气五层",
-    "练气六层", "练气七层", "练气八层", "练气九层", "筑基初期",
-    "筑基中期", "筑基后期", "金丹期"
-  ];
+    const realmNames = [
+      "练气一层", "练气二层", "练气三层", "练气四层", "练气五层",
+      "练气六层", "练气七层", "练气八层", "练气九层", "筑基初期",
+      "筑基中期", "筑基后期", "金丹期"
+    ];
 
-  cultivateBtn.addEventListener("click", () => {
-    const types = ["fire", "water", "wood", "metal", "earth"];
-    const type = types[Math.floor(Math.random() * types.length)];
-    const gain = (type === mainRoot) ? 2 : 1;
+    cultivateBtn.addEventListener("click", () => {
+      const types = ["fire", "water", "wood", "metal", "earth"];
+      const type = types[Math.floor(Math.random() * types.length)];
+      const gain = (type === mainRoot) ? 2 : 1;
 
-    if (type === "fire") fire += gain, fireSpan.textContent = fire;
-    if (type === "water") water += gain, waterSpan.textContent = water;
-    if (type === "wood") wood += gain, woodSpan.textContent = wood;
-    if (type === "metal") metal += gain, metalSpan.textContent = metal;
-    if (type === "earth") earth += gain, earthSpan.textContent = earth;
+      if (type === "fire") fire += gain, fireSpan.textContent = fire;
+      if (type === "water") water += gain, waterSpan.textContent = water;
+      if (type === "wood") wood += gain, woodSpan.textContent = wood;
+      if (type === "metal") metal += gain, metalSpan.textContent = metal;
+      if (type === "earth") earth += gain, earthSpan.textContent = earth;
 
-    power += gain;
-    powerSpan.textContent = power;
+      power += gain;
+      powerSpan.textContent = power;
 
-    if (power >= 10) {
-      power = 0;
-      realmLevel++;
-      const newRealm = realmNames[realmLevel - 1] || "已达仙界";
-      realmSpan.textContent = newRealm;
-      alert("🎉 突破成功！进入境界：" + newRealm);
+      if (power >= 10) {
+        power = 0;
+        realmLevel++;
+        const newRealm = realmNames[realmLevel - 1] || "已达仙界";
+        realmSpan.textContent = newRealm;
+        alert("🎉 突破成功！进入境界：" + newRealm);
+      }
+    });
+
+    // 灵草采集
+    document.querySelector(".herb").addEventListener("click", () => {
+      herbs++;
+      herbSpan.textContent = herbs;
+      alert("你采集到了灵草 🌿！当前拥有：" + herbs + " 株");
+    });
+
+    // 收服灵兽
+    document.querySelector(".beast").addEventListener("click", () => {
+      if (!beastTamed) {
+        beastTamed = true;
+        beastStatus.textContent = "已收服";
+        alert("你成功收服了一只灵兽！它将协助你修炼 🌟");
+        startBeastHelp();
+      } else {
+        alert("灵兽已收服，它正在帮助你修炼中...");
+      }
+    });
+
+    function startBeastHelp() {
+      setInterval(() => {
+        if (beastTamed) {
+          herbs += 1;
+          herbSpan.textContent = herbs;
+        }
+      }, 5000);
     }
-  });
-
-  // 🌿 灵草点击采集逻辑
-  const herbEl = document.querySelector(".herb");
-  herbEl.addEventListener("click", () => {
-    herbs++;
-    herbSpan.textContent = herbs;
-    alert("你采集到了灵草 🌿！当前拥有：" + herbs + " 株");
-  });
-  let pills = 0;
-
-const pillSpan = document.getElementById("pills");
-const makePillBtn = document.getElementById("makePillBtn");
-const eatPillBtn = document.getElementById("eatPillBtn");
-
-makePillBtn.addEventListener("click", () => {
-  if (herbs >= 3) {
-    herbs -= 3;
-    pills += 1;
-    herbSpan.textContent = herbs;
-    pillSpan.textContent = pills;
-    alert("你成功炼制出了一颗丹药！");
-  } else {
-    alert("灵草不足，至少需要 3 株灵草才能炼丹！");
-  }
-});
-
-eatPillBtn.addEventListener("click", () => {
-  if (pills >= 1) {
-    pills -= 1;
-    power += 5;
-    pillSpan.textContent = pills;
-    powerSpan.textContent = power;
-    alert("你服用了丹药，灵力提升 +5！");
-
-    if (power >= 10) {
-      power = 0;
-      realmLevel++;
-      const newRealm = realmNames[realmLevel - 1] || "已达仙界";
-      realmSpan.textContent = newRealm;
-      alert("🎉 突破成功！进入境界：" + newRealm);
-    }
-  } else {
-    alert("你没有丹药可服用！");
-  }
-});
-
-</script>
-
+  </script>
 </body>
 </html>
